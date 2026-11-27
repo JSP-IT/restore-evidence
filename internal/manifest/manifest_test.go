@@ -83,7 +83,7 @@ func TestMalformedManifests(t *testing.T) {
 		{"string schema", `{"schema_version":"1"}`, []string{"schema_version: must be an integer"}},
 		{"future schema", `{"schema_version":2,"new_field":true}`, []string{"schema_version: 2 is not supported (this build supports 1)"}},
 		{"unknown field", `{"schema_version":1,"test":{"id":"a","title":"b"},"files":[{"path":"x","mode":"0644"}]}`, []string{`unknown field "mode"`}},
-		{"wrong type", `{"schema_version":1,"test":{"id":"a","title":"b"},"files":[{"path":"x","size":"12"}]}`, []string{"files[0].size: expected int64"}},
+		{"wrong type", `{"schema_version":1,"test":{"id":"a","title":"b"},"files":[{"path":"x","size":"12"}]}`, []string{"size: expected int64, found JSON string"}},
 		{"invalid utf8", "{\"schema_version\":1,\"test\":{\"id\":\"\xff\",\"title\":\"b\"}}", []string{"not valid UTF-8"}},
 		{"nothing to check", `{"schema_version":1,"test":{"id":"a","title":"b"}}`, []string{"nothing to check"}},
 		{"missing test fields", `{"schema_version":1,"files":[{"path":"x"}]}`, []string{"test.id: required", "test.title: required"}},

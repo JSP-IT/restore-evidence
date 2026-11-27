@@ -42,9 +42,13 @@ func Write(name, label string, opts Options, render func(io.Writer) error) error
 	target := filepath.Join(dir, filepath.Base(abs))
 
 	for _, p := range opts.ProtectedDirs {
-		resolved, err := filepath.EvalSymlinks(p)
+		// Make the path absolute before resolving it, exactly as for the
+		// target. Resolving a relative path first would leave the working
+		// directory unresolved (for example /var instead of /private/var on
+		// macOS, or an 8.3 short name on Windows) and the check would miss.
+		resolved, err := filepath.Abs(p)
 		if err == nil {
-			resolved, err = filepath.Abs(resolved)
+			resolved, err = filepath.EvalSymlinks(resolved)
 		}
 		if err != nil {
 			return fmt.Errorf("%s: cannot resolve the restored directory to check the output location", label)
