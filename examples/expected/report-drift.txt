@@ -1,0 +1,12 @@
+Restore test RT-EXAMPLE-002: fail
+Checks: 11 verified, 4 failed, 3 not performed
+Supplied results (not verified by this tool): 0 pass, 1 fail, 1 not performed
+failed file_count (expected 5, observed 4)
+failed total_bytes (expected 648, observed 398)
+failed presence db/invoices.csv (expected regular file, observed not found)
+not_performed size db/invoices.csv (expected 250, observed -): the file was not found
+not_performed sha256 db/invoices.csv (expected 0000000000000000000000000000000000000000000000000000000000000000, observed -): the file was not found
+failed sha256 db/orders.csv (expected 1111111111111111111111111111111111111111111111111111111111111111, observed 84f9effddc4759543d02852c9fd202982ff27085bcfc3232ab7da9bfe3b630e8)
+not_performed sha256 logs/restore.log: the manifest gives no SHA-256 digest for this file
+supplied fail service-start
+supplied not_performed login-test

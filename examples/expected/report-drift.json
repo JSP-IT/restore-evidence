@@ -1,0 +1,188 @@
+{
+  "report_schema_version": 1,
+  "tool": {
+    "name": "restore-evidence",
+    "version": "v0.1.0"
+  },
+  "manifest": {
+    "schema_version": 1,
+    "sha256": "bdb0cd8a14c461df0e45db7a62ae576bc229f82d2d0a68f755cc04fbb688d232",
+    "file_entries": 5
+  },
+  "test": {
+    "id": "RT-EXAMPLE-002",
+    "title": "Restore test with drift (synthetic)",
+    "system": "example-inventory (synthetic)",
+    "restore_started_at": "2026-11-20T10:00:00Z",
+    "restore_completed_at": "2026-11-20T10:02:10Z",
+    "performed_by": "operations on-call",
+    "notes": "This manifest deliberately disagrees with examples/restored to show failed and not-performed checks."
+  },
+  "inputs": {
+    "restored_directory_supplied": true,
+    "hashing_enabled": true,
+    "paths_redacted": false
+  },
+  "outcome": "fail",
+  "summary": {
+    "verified": 11,
+    "failed": 4,
+    "not_performed": 3,
+    "supplied_pass": 0,
+    "supplied_fail": 1,
+    "supplied_not_performed": 1
+  },
+  "checks": [
+    {
+      "kind": "file_count",
+      "status": "failed",
+      "expected": "5",
+      "observed": "4"
+    },
+    {
+      "kind": "total_bytes",
+      "status": "failed",
+      "expected": "648",
+      "observed": "398"
+    },
+    {
+      "kind": "unlisted_files",
+      "status": "verified",
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "kind": "presence",
+      "subject": "app/config.ini",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "app/config.ini",
+      "status": "verified",
+      "expected": "114",
+      "observed": "114"
+    },
+    {
+      "kind": "sha256",
+      "subject": "app/config.ini",
+      "status": "verified",
+      "expected": "ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc",
+      "observed": "ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc"
+    },
+    {
+      "kind": "presence",
+      "subject": "[redacted file #2]",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "[redacted file #2]",
+      "status": "verified",
+      "expected": "111",
+      "observed": "111"
+    },
+    {
+      "kind": "sha256",
+      "subject": "[redacted file #2]",
+      "status": "verified",
+      "expected": "2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6",
+      "observed": "2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6"
+    },
+    {
+      "kind": "presence",
+      "subject": "db/invoices.csv",
+      "status": "failed",
+      "expected": "regular file",
+      "observed": "not found"
+    },
+    {
+      "kind": "size",
+      "subject": "db/invoices.csv",
+      "status": "not_performed",
+      "expected": "250",
+      "reason": "the file was not found"
+    },
+    {
+      "kind": "sha256",
+      "subject": "db/invoices.csv",
+      "status": "not_performed",
+      "expected": "0000000000000000000000000000000000000000000000000000000000000000",
+      "reason": "the file was not found"
+    },
+    {
+      "kind": "presence",
+      "subject": "db/orders.csv",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "db/orders.csv",
+      "status": "verified",
+      "expected": "77",
+      "observed": "77"
+    },
+    {
+      "kind": "sha256",
+      "subject": "db/orders.csv",
+      "status": "failed",
+      "expected": "1111111111111111111111111111111111111111111111111111111111111111",
+      "observed": "84f9effddc4759543d02852c9fd202982ff27085bcfc3232ab7da9bfe3b630e8"
+    },
+    {
+      "kind": "presence",
+      "subject": "logs/restore.log",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "logs/restore.log",
+      "status": "verified",
+      "expected": "96",
+      "observed": "96"
+    },
+    {
+      "kind": "sha256",
+      "subject": "logs/restore.log",
+      "status": "not_performed",
+      "reason": "the manifest gives no SHA-256 digest for this file"
+    }
+  ],
+  "supplied_results": [
+    {
+      "id": "service-start",
+      "description": "The restored service started and answered its health endpoint.",
+      "reported_outcome": "fail",
+      "notes": "Health endpoint returned 503 because the invoices table was empty."
+    },
+    {
+      "id": "login-test",
+      "description": "A test user can sign in to the restored service.",
+      "reported_outcome": "not_performed",
+      "notes": "Skipped because the service did not start."
+    }
+  ],
+  "observed": {
+    "regular_files": 4,
+    "total_bytes": 398,
+    "unlisted_files": 0,
+    "symlinks_not_followed": 0,
+    "other_non_regular": 0,
+    "unreadable_entries": 0
+  },
+  "limitations": [
+    "This report records only the checks listed in it, made by this tool at the time it ran, against the manifest and directory it was given.",
+    "Supplied results are copied from the manifest as reported by the operator. This tool did not observe or verify them.",
+    "A verified SHA-256 digest shows that the restored file matches the digest in the manifest. It is only as trustworthy as the source of the manifest and does not show where the data came from.",
+    "The report does not show that the backup can be restored again, under other conditions, or by other people, and it does not show that the restored data is complete or correct beyond the listed checks.",
+    "The report is not a compliance certification and is not tamper-evident: anyone with write access can edit or regenerate it."
+  ]
+}
