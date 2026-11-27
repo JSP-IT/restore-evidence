@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Restore test evidence: RT-EXAMPLE-001</title>
+<style>
+:root { color-scheme: light dark; --fg: #1d1d1f; --muted: #5c5c66; --bg: #fff; --line: #d9d9de; --ok: #1a7f37; --bad: #b42318; --np: #8a5a00; }
+@media (prefers-color-scheme: dark) { :root { --fg: #ececf1; --muted: #a4a4ae; --bg: #16161a; --line: #3a3a42; --ok: #4ac26b; --bad: #ff7b72; --np: #e3b341; } }
+body { font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--fg); background: var(--bg); max-width: 72rem; margin: 2rem auto; padding: 0 1rem; }
+h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: .25rem; }
+.muted { color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; vertical-align: top; padding: .35rem .5rem; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; }
+td.code, .code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: .2rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.verified, .pass { color: var(--ok); font-weight: 600; }
+.failed, .fail { color: var(--bad); font-weight: 600; }
+.not_performed, .incomplete { color: var(--np); font-weight: 600; }
+.outcome { font-size: 1.1rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 6px; display: inline-block; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+</style>
+</head>
+<body>
+<h1>Restore test evidence</h1>
+<p class="muted">Quarterly restore test of the synthetic inventory dataset &middot; test ID <span class="code">RT-EXAMPLE-001</span></p>
+
+<p class="outcome pass">Pass: all checks verified</p>
+
+<h2>Summary</h2>
+<table>
+<tr><th>Checks by this tool</th><td><span class="verified">15 verified</span>, <span class="failed">0 failed</span>, <span class="not_performed">0 not performed</span></td></tr>
+<tr><th>Supplied results (not verified by this tool)</th><td>2 reported pass, 0 reported fail, 0 reported not performed</td></tr>
+</table>
+
+<h2>Restore test</h2>
+<dl>
+<dt>Test ID</dt><dd class="code">RT-EXAMPLE-001</dd>
+<dt>Title</dt><dd>Quarterly restore test of the synthetic inventory dataset</dd>
+<dt>System</dt><dd>example-inventory (synthetic)</dd>
+<dt>Environment</dt><dd>isolated test host</dd>
+<dt>Backup reference</dt><dd>nightly snapshot 2026-11-19 (synthetic label)</dd>
+<dt>Backup taken</dt><dd>2026-11-19T23:00:00Z</dd>
+<dt>Restore started</dt><dd>2026-11-20T09:14:00Z</dd>
+<dt>Restore completed</dt><dd>2026-11-20T09:15:40Z</dd>
+<dt>Performed by</dt><dd>operations on-call</dd>
+<dt>Notes</dt><dd>All data in this example is synthetic.</dd>
+</dl>
+<p class="muted">These details are supplied by the operator in the manifest.</p>
+
+<h2>Checks by this tool</h2>
+<table>
+<thead><tr><th>Status</th><th>Check</th><th>Subject</th><th>Expected</th><th>Observed</th><th>Reason</th></tr></thead>
+<tbody>
+<tr><td class="verified">Verified</td><td>file_count</td><td class="code"></td><td class="code">4</td><td class="code">4</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>total_bytes</td><td class="code"></td><td class="code">398</td><td class="code">398</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>unlisted_files</td><td class="code"></td><td class="code">0</td><td class="code">0</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>presence</td><td class="code">app/config.ini</td><td class="code">regular file</td><td class="code">regular file</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>size</td><td class="code">app/config.ini</td><td class="code">114</td><td class="code">114</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>sha256</td><td class="code">app/config.ini</td><td class="code">ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc</td><td class="code">ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>presence</td><td class="code">db/customers.csv</td><td class="code">regular file</td><td class="code">regular file</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>size</td><td class="code">db/customers.csv</td><td class="code">111</td><td class="code">111</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>sha256</td><td class="code">db/customers.csv</td><td class="code">2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6</td><td class="code">2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>presence</td><td class="code">db/orders.csv</td><td class="code">regular file</td><td class="code">regular file</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>size</td><td class="code">db/orders.csv</td><td class="code">77</td><td class="code">77</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>sha256</td><td class="code">db/orders.csv</td><td class="code">84f9effddc4759543d02852c9fd202982ff27085bcfc3232ab7da9bfe3b630e8</td><td class="code">84f9effddc4759543d02852c9fd202982ff27085bcfc3232ab7da9bfe3b630e8</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>presence</td><td class="code">logs/restore.log</td><td class="code">regular file</td><td class="code">regular file</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>size</td><td class="code">logs/restore.log</td><td class="code">96</td><td class="code">96</td><td></td></tr>
+<tr><td class="verified">Verified</td><td>sha256</td><td class="code">logs/restore.log</td><td class="code">7efae71128c58a3f867f5cfe5637f3e88c49ddf55b20ec44c72da8932a8661a8</td><td class="code">7efae71128c58a3f867f5cfe5637f3e88c49ddf55b20ec44c72da8932a8661a8</td><td></td></tr>
+</tbody>
+</table>
+
+<h2>Supplied results</h2>
+<p class="muted">Reported by the operator in the manifest. This tool did not observe or verify them, and it never runs the commands shown.</p>
+<table>
+<thead><tr><th>Reported outcome</th><th>ID</th><th>Description</th><th>Evidence reference</th><th>Command (text only)</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td class="pass">Reported pass</td><td class="code">service-start</td><td>The restored service started and answered its health endpoint.</td><td>change ticket CHG-EXAMPLE-42</td><td class="code"><pre>curl -fsS http://127.0.0.1:8080/healthz</pre></td><td></td></tr>
+<tr><td class="pass">Reported pass</td><td class="code">row-counts</td><td>Row counts in the restored tables match the source export.</td><td></td><td class="code"><pre></pre></td><td>customers 3, orders 4</td></tr>
+</tbody>
+</table>
+
+<h2>Restored directory as observed</h2>
+<table>
+<tr><th>Regular files</th><td>4</td></tr>
+<tr><th>Total bytes in regular files</th><td>398</td></tr>
+<tr><th>Regular files not listed in the manifest</th><td>0</td></tr>
+<tr><th>Symbolic links (not followed)</th><td>0</td></tr>
+<tr><th>Other non-regular entries (skipped)</th><td>0</td></tr>
+<tr><th>Entries that could not be read</th><td>0</td></tr>
+</table>
+
+
+<h2>Inputs</h2>
+<dl>
+<dt>Manifest SHA-256</dt><dd class="code">60a43d498103e9bcf4ea3111ea98a655a1d05f0fd1548681970d4e06881c6206</dd>
+<dt>Manifest schema version</dt><dd>1</dd>
+<dt>File entries in manifest</dt><dd>4</dd>
+<dt>Restored directory supplied</dt><dd>yes</dd>
+<dt>SHA-256 hashing</dt><dd>enabled</dd>
+<dt>Paths redacted</dt><dd>no (entries marked sensitive are always redacted)</dd>
+<dt>Report schema version</dt><dd>1</dd>
+<dt>Generated by</dt><dd>restore-evidence v0.1.0</dd>
+</dl>
+
+<h2>Limitations</h2>
+<ul>
+<li>This report records only the checks listed in it, made by this tool at the time it ran, against the manifest and directory it was given.</li>
+<li>Supplied results are copied from the manifest as reported by the operator. This tool did not observe or verify them.</li>
+<li>A verified SHA-256 digest shows that the restored file matches the digest in the manifest. It is only as trustworthy as the source of the manifest and does not show where the data came from.</li>
+<li>The report does not show that the backup can be restored again, under other conditions, or by other people, and it does not show that the restored data is complete or correct beyond the listed checks.</li>
+<li>The report is not a compliance certification and is not tamper-evident: anyone with write access can edit or regenerate it.</li>
+</ul>
+</body>
+</html>

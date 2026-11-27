@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "test": {
+    "id": "RT-EXAMPLE-002",
+    "title": "Restore test with drift (synthetic)",
+    "system": "example-inventory (synthetic)",
+    "restore_started_at": "2026-11-20T10:00:00Z",
+    "restore_completed_at": "2026-11-20T10:02:10Z",
+    "performed_by": "operations on-call",
+    "notes": "This manifest deliberately disagrees with examples/restored to show failed and not-performed checks."
+  },
+  "expected": {
+    "file_count": 5,
+    "total_bytes": 648
+  },
+  "files": [
+    { "path": "app/config.ini", "size": 114, "sha256": "ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc" },
+    { "path": "db/customers.csv", "size": 111, "sha256": "2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6", "sensitive": true },
+    { "path": "db/invoices.csv", "size": 250, "sha256": "0000000000000000000000000000000000000000000000000000000000000000" },
+    { "path": "db/orders.csv", "size": 77, "sha256": "1111111111111111111111111111111111111111111111111111111111111111" },
+    { "path": "logs/restore.log", "size": 96 }
+  ],
+  "supplied_results": [
+    {
+      "id": "service-start",
+      "description": "The restored service started and answered its health endpoint.",
+      "outcome": "fail",
+      "notes": "Health endpoint returned 503 because the invoices table was empty."
+    },
+    {
+      "id": "login-test",
+      "description": "A test user can sign in to the restored service.",
+      "outcome": "not_performed",
+      "notes": "Skipped because the service did not start."
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'none'; form-action 'none'; base-uri 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Restore test evidence: {{.Test.ID}}</title>
+<style>
+:root { color-scheme: light dark; --fg: #1d1d1f; --muted: #5c5c66; --bg: #fff; --line: #d9d9de; --ok: #1a7f37; --bad: #b42318; --np: #8a5a00; }
+@media (prefers-color-scheme: dark) { :root { --fg: #ececf1; --muted: #a4a4ae; --bg: #16161a; --line: #3a3a42; --ok: #4ac26b; --bad: #ff7b72; --np: #e3b341; } }
+body { font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--fg); background: var(--bg); max-width: 72rem; margin: 2rem auto; padding: 0 1rem; }
+h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+h2 { font-size: 1.15rem; margin-top: 2rem; border-bottom: 1px solid var(--line); padding-bottom: .25rem; }
+.muted { color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; vertical-align: top; padding: .35rem .5rem; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; }
+td.code, .code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; }
+dl { display: grid; grid-template-columns: max-content 1fr; gap: .2rem 1rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+.verified, .pass { color: var(--ok); font-weight: 600; }
+.failed, .fail { color: var(--bad); font-weight: 600; }
+.not_performed, .incomplete { color: var(--np); font-weight: 600; }
+.outcome { font-size: 1.1rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 6px; display: inline-block; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+</style>
+</head>
+<body>
+<h1>Restore test evidence</h1>
+<p class="muted">{{.Test.Title}} &middot; test ID <span class="code">{{.Test.ID}}</span></p>
+
+<p class="outcome {{.Outcome}}">{{outcomeLabel .Outcome}}</p>
+
+<h2>Summary</h2>
+<table>
+<tr><th>Checks by this tool</th><td><span class="verified">{{.Summary.Verified}} verified</span>, <span class="failed">{{.Summary.Failed}} failed</span>, <span class="not_performed">{{.Summary.NotPerformed}} not performed</span></td></tr>
+<tr><th>Supplied results (not verified by this tool)</th><td>{{.Summary.SuppliedPass}} reported pass, {{.Summary.SuppliedFail}} reported fail, {{.Summary.SuppliedNotPerformed}} reported not performed</td></tr>
+</table>
+
+<h2>Restore test</h2>
+<dl>
+<dt>Test ID</dt><dd class="code">{{.Test.ID}}</dd>
+<dt>Title</dt><dd>{{.Test.Title}}</dd>
+{{with .Test.System}}<dt>System</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.Environment}}<dt>Environment</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.BackupReference}}<dt>Backup reference</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.BackupTakenAt}}<dt>Backup taken</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.RestoreStartedAt}}<dt>Restore started</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.RestoreCompletedAt}}<dt>Restore completed</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.PerformedBy}}<dt>Performed by</dt><dd>{{.}}</dd>
+{{end}}{{with .Test.Notes}}<dt>Notes</dt><dd>{{.}}</dd>
+{{end}}</dl>
+<p class="muted">These details are supplied by the operator in the manifest.</p>
+
+<h2>Checks by this tool</h2>
+{{if .Checks}}<table>
+<thead><tr><th>Status</th><th>Check</th><th>Subject</th><th>Expected</th><th>Observed</th><th>Reason</th></tr></thead>
+<tbody>
+{{range .Checks}}<tr><td class="{{.Status}}">{{statusLabel .Status}}</td><td>{{.Kind}}</td><td class="code">{{.Subject}}</td><td class="code">{{.Expected}}</td><td class="code">{{.Observed}}</td><td>{{.Reason}}</td></tr>
+{{end}}</tbody>
+</table>{{else}}<p>No checks.</p>{{end}}
+
+<h2>Supplied results</h2>
+<p class="muted">Reported by the operator in the manifest. This tool did not observe or verify them, and it never runs the commands shown.</p>
+{{if .SuppliedResults}}<table>
+<thead><tr><th>Reported outcome</th><th>ID</th><th>Description</th><th>Evidence reference</th><th>Command (text only)</th><th>Notes</th></tr></thead>
+<tbody>
+{{range .SuppliedResults}}<tr><td class="{{.Outcome}}">{{suppliedLabel .Outcome}}</td><td class="code">{{.ID}}</td><td>{{.Description}}</td><td>{{.EvidenceRef}}</td><td class="code"><pre>{{.Command}}</pre></td><td>{{.Notes}}</td></tr>
+{{end}}</tbody>
+</table>{{else}}<p>None.</p>{{end}}
+
+{{with .Observed}}<h2>Restored directory as observed</h2>
+<table>
+<tr><th>Regular files</th><td>{{.RegularFiles}}</td></tr>
+<tr><th>Total bytes in regular files</th><td>{{.TotalBytes}}</td></tr>
+<tr><th>Regular files not listed in the manifest</th><td>{{.UnlistedFiles}}</td></tr>
+<tr><th>Symbolic links (not followed)</th><td>{{.SymlinksNotFollowed}}</td></tr>
+<tr><th>Other non-regular entries (skipped)</th><td>{{.OtherNonRegular}}</td></tr>
+<tr><th>Entries that could not be read</th><td>{{.UnreadableEntries}}</td></tr>
+</table>
+{{if .UnlistedSample}}<p>First unlisted files, in lexical order:</p>
+<ul>{{range .UnlistedSample}}<li class="code">{{.}}</li>{{end}}</ul>{{end}}
+{{end}}
+<h2>Inputs</h2>
+<dl>
+<dt>Manifest SHA-256</dt><dd class="code">{{.Manifest.SHA256}}</dd>
+<dt>Manifest schema version</dt><dd>{{.Manifest.SchemaVersion}}</dd>
+<dt>File entries in manifest</dt><dd>{{.Manifest.FileEntries}}</dd>
+<dt>Restored directory supplied</dt><dd>{{if .Inputs.RestoredDirectorySupplied}}yes{{else}}no{{end}}</dd>
+<dt>SHA-256 hashing</dt><dd>{{if .Inputs.HashingEnabled}}enabled{{else}}disabled{{end}}</dd>
+<dt>Paths redacted</dt><dd>{{if .Inputs.PathsRedacted}}yes{{else}}no (entries marked sensitive are always redacted){{end}}</dd>
+<dt>Report schema version</dt><dd>{{.ReportSchemaVersion}}</dd>
+<dt>Generated by</dt><dd>{{.Tool.Name}} {{.Tool.Version}}</dd>
+</dl>
+
+<h2>Limitations</h2>
+<ul>
+{{range .Limitations}}<li>{{.}}</li>
+{{end}}</ul>
+</body>
+</html>

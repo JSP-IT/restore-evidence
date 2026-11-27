@@ -1,0 +1,3 @@
+Restore test RT-EXAMPLE-001: pass
+Checks: 15 verified, 0 failed, 0 not performed
+Supplied results (not verified by this tool): 2 pass, 0 fail, 0 not performed

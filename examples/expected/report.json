@@ -1,0 +1,172 @@
+{
+  "report_schema_version": 1,
+  "tool": {
+    "name": "restore-evidence",
+    "version": "v0.1.0"
+  },
+  "manifest": {
+    "schema_version": 1,
+    "sha256": "60a43d498103e9bcf4ea3111ea98a655a1d05f0fd1548681970d4e06881c6206",
+    "file_entries": 4
+  },
+  "test": {
+    "id": "RT-EXAMPLE-001",
+    "title": "Quarterly restore test of the synthetic inventory dataset",
+    "system": "example-inventory (synthetic)",
+    "environment": "isolated test host",
+    "backup_reference": "nightly snapshot 2026-11-19 (synthetic label)",
+    "backup_taken_at": "2026-11-19T23:00:00Z",
+    "restore_started_at": "2026-11-20T09:14:00Z",
+    "restore_completed_at": "2026-11-20T09:15:40Z",
+    "performed_by": "operations on-call",
+    "notes": "All data in this example is synthetic."
+  },
+  "inputs": {
+    "restored_directory_supplied": true,
+    "hashing_enabled": true,
+    "paths_redacted": false
+  },
+  "outcome": "pass",
+  "summary": {
+    "verified": 15,
+    "failed": 0,
+    "not_performed": 0,
+    "supplied_pass": 2,
+    "supplied_fail": 0,
+    "supplied_not_performed": 0
+  },
+  "checks": [
+    {
+      "kind": "file_count",
+      "status": "verified",
+      "expected": "4",
+      "observed": "4"
+    },
+    {
+      "kind": "total_bytes",
+      "status": "verified",
+      "expected": "398",
+      "observed": "398"
+    },
+    {
+      "kind": "unlisted_files",
+      "status": "verified",
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "kind": "presence",
+      "subject": "app/config.ini",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "app/config.ini",
+      "status": "verified",
+      "expected": "114",
+      "observed": "114"
+    },
+    {
+      "kind": "sha256",
+      "subject": "app/config.ini",
+      "status": "verified",
+      "expected": "ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc",
+      "observed": "ca51ad1a436bbadf1b97ae3b92d7706cc43feee822a86c185f63aceb084b15dc"
+    },
+    {
+      "kind": "presence",
+      "subject": "db/customers.csv",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "db/customers.csv",
+      "status": "verified",
+      "expected": "111",
+      "observed": "111"
+    },
+    {
+      "kind": "sha256",
+      "subject": "db/customers.csv",
+      "status": "verified",
+      "expected": "2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6",
+      "observed": "2bca402af50e2a074a659d465f3dcf088835109ac0aea1be0cacf1d94710fcf6"
+    },
+    {
+      "kind": "presence",
+      "subject": "db/orders.csv",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "db/orders.csv",
+      "status": "verified",
+      "expected": "77",
+      "observed": "77"
+    },
+    {
+      "kind": "sha256",
+      "subject": "db/orders.csv",
+      "status": "verified",
+      "expected": "84f9effddc4759543d02852c9fd202982ff27085bcfc3232ab7da9bfe3b630e8",
+      "observed": "84f9effddc4759543d02852c9fd202982ff27085bcfc3232ab7da9bfe3b630e8"
+    },
+    {
+      "kind": "presence",
+      "subject": "logs/restore.log",
+      "status": "verified",
+      "expected": "regular file",
+      "observed": "regular file"
+    },
+    {
+      "kind": "size",
+      "subject": "logs/restore.log",
+      "status": "verified",
+      "expected": "96",
+      "observed": "96"
+    },
+    {
+      "kind": "sha256",
+      "subject": "logs/restore.log",
+      "status": "verified",
+      "expected": "7efae71128c58a3f867f5cfe5637f3e88c49ddf55b20ec44c72da8932a8661a8",
+      "observed": "7efae71128c58a3f867f5cfe5637f3e88c49ddf55b20ec44c72da8932a8661a8"
+    }
+  ],
+  "supplied_results": [
+    {
+      "id": "service-start",
+      "description": "The restored service started and answered its health endpoint.",
+      "reported_outcome": "pass",
+      "evidence_ref": "change ticket CHG-EXAMPLE-42",
+      "command": "curl -fsS http://127.0.0.1:8080/healthz"
+    },
+    {
+      "id": "row-counts",
+      "description": "Row counts in the restored tables match the source export.",
+      "reported_outcome": "pass",
+      "notes": "customers 3, orders 4"
+    }
+  ],
+  "observed": {
+    "regular_files": 4,
+    "total_bytes": 398,
+    "unlisted_files": 0,
+    "symlinks_not_followed": 0,
+    "other_non_regular": 0,
+    "unreadable_entries": 0
+  },
+  "limitations": [
+    "This report records only the checks listed in it, made by this tool at the time it ran, against the manifest and directory it was given.",
+    "Supplied results are copied from the manifest as reported by the operator. This tool did not observe or verify them.",
+    "A verified SHA-256 digest shows that the restored file matches the digest in the manifest. It is only as trustworthy as the source of the manifest and does not show where the data came from.",
+    "The report does not show that the backup can be restored again, under other conditions, or by other people, and it does not show that the restored data is complete or correct beyond the listed checks.",
+    "The report is not a compliance certification and is not tamper-evident: anyone with write access can edit or regenerate it."
+  ]
+}
